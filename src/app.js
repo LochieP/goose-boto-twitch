@@ -116,6 +116,11 @@ client.on('message', (channel, userstate, message, self) => {
     return
   }
 
+  if(message.toLowerCase() === '!setup') {
+    commands.setup(channel, userstate)
+    return
+  }
+
   //ENDREGION: MESSAGE CATCHER
 
   //onMessageHandler will handle the primary message filtering for blocked words
@@ -134,5 +139,13 @@ function checkTwitchChat(userstate, message, channel) {
     client.say(channel, `@${userstate.username}, yoooooooooooooooooooooooooo none of that`)
     //Delete message
     client.deletemessage(channel, userstate.id)
+  }
+
+  //length checker
+  if(message.length() > 500){
+        //Tell user
+        client.say(channel, `@${userstate.username}, please don't send messages that are massive!`)
+        //Delete message
+        client.deletemessage(channel, userstate.id)
   }
 }
